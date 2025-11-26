@@ -1,0 +1,135 @@
+{% extends "users/base.html" %}
+
+{% block title %}Connexion | LearnHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    }
+
+    .card {
+        border-radius: 1.5rem !important;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+        background: white;
+    }
+
+    .card-header {
+        background: #5a67d8 !important;
+        color: white !important;
+        text-align: center !important;
+        padding: 1.5rem !important;
+        border-radius: 1.5rem 1.5rem 0 0 !important;
+        font-weight: 600;
+    }
+
+    .form-control {
+        height: 50px !important;
+        border-radius: 50px !important;
+        border: 1px solid #ddd !important;
+        padding: 0 1rem !important;
+    }
+
+    .input-group .form-control {
+        border-left: none !important;
+        border-radius: 0 50px 50px 0 !important;
+    }
+
+    .input-group-text {
+        background: white !important;
+        border: 1px solid #ddd !important;
+        border-right: none !important;
+        border-radius: 50px 0 0 50px !important;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .form-control:focus {
+        border-color: #5a67d8 !important;
+        box-shadow: 0 0 0 0.2rem rgba(90, 103, 216, 0.25) !important;
+    }
+
+    .btn-primary {
+        background: #5a67d8 !important;
+        border: none !important;
+        border-radius: 50px !important;
+        padding: 0.75rem !important;
+        font-weight: 600 !important;
+    }
+
+    .btn-primary:hover {
+        background: #4c51bf !important;
+        transform: translateY(-3px) !important;
+        box-shadow: 0 10px 20px rgba(90, 103, 216, 0.4) !important;
+    }
+
+    .form-check-input:checked {
+        background-color: #5a67d8 !important;
+        border-color: #5a67d8 !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="mb-0">Connexion</h3>
+    </div>
+    <div class="card-body p-4">
+
+        <!-- Messages -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-3">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Formulaire -->
+        <form method="POST" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Nom d'utilisateur</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-at"></i></span>
+                    {{ form.username }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Mot de passe</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    {{ form.password }}
+                </div>
+            </div>
+
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                <label class="form-check-label text-muted" for="remember">Se souvenir de moi</label>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Se connecter</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-4">
+            <p class="mb-0 text-muted small">
+                Pas encore de compte ?
+                <a href="{% url 'users:register' %}" class="text-primary fw-semibold">S'inscrire</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="text-center text-white mt-4 opacity-75">
+    <small>© 2025 LearnHub. Tous droits réservés.</small>
+</div>
+{% endblock %}
