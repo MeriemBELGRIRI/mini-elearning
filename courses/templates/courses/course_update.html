@@ -1,0 +1,26 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+<style>
+     .btn {
+        background: #5a67d8 !important;
+        border: none !important;
+        border-radius: 50px !important;
+        padding: 0.75rem !important;
+        font-weight: 600 !important;
+  }
+  .btn:hover {
+        background: #4c51bf !important;
+        transform: translateY(-3px) !important;
+        box-shadow: 0 10px 20px rgba(90, 103, 216, 0.4) !important;
+    }
+</style>
+<div class="container mt-4">
+    <h2>Modifier le cours : {{ course.title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary">Enregistrer</button>
+        <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

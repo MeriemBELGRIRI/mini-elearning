@@ -91,7 +91,7 @@
         {% endif %}
 
         <!-- Formulaire -->
-        <form method="POST" novalidate>
+        <form method="POST" action="{% url 'users:login' %}" novalidate>
             {% csrf_token %}
 
             <div class="mb-3">

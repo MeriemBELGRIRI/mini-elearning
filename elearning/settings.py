@@ -23,9 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-adnj)q_m@7-*5@2a8*t&(tmz)8lt+bh3=cszqib%(4@ghr_x-$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -122,3 +121,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# URL de redirection quand l'utilisateur n'est pas connecté
+LOGIN_URL = '/users/login/'  # correspond à l'URL de login
+LOGIN_REDIRECT_URL = '/courses/'     # après login
+LOGOUT_REDIRECT_URL = '/'    # après logout

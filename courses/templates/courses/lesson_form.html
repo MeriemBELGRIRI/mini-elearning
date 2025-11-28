@@ -1,0 +1,67 @@
+{% extends 'courses/base.html' %}
+{% load bootstrap_filters %}
+{% block content %}
+<style>
+  body{
+    background: #667eea;
+  }
+  .text-center{
+    color: #667eea;
+  }
+  .btn {
+        background: #5a67d8 !important;
+        border: none !important;
+        border-radius: 50px !important;
+        padding: 0.75rem !important;
+        font-weight: 600 !important;
+  }
+  .btn:hover {
+        background: #4c51bf !important;
+        transform: translateY(-3px) !important;
+        box-shadow: 0 10px 20px rgba(90, 103, 216, 0.4) !important;
+  }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4">
+
+                    <h2 class="text-center mb-4">{{ title }}</h2>
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            {{ form.title.label_tag }}
+                            {{ form.title|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.content.label_tag }}
+                            {{ form.content|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.video_url.label_tag }}
+                            {{ form.video_url|add_class:"form-control" }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Enregistrer
+                        </button>
+                        <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary w-100 mt-2">
+                            Annuler
+                        </a>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

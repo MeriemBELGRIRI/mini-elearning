@@ -1,0 +1,71 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+<style>
+  body{
+    background: #f2f2f2 !important;
+  }
+
+  .course-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;          /* espace entre texte et boutons */
+  }
+
+  .course-text {
+    flex: 1;            /* occupe tout l'espace */
+    min-width: 0;       /* empêche l'étirement horizontal */
+  }
+
+  .course-actions {
+    display: flex;
+    flex-shrink: 0;     /* empêche les boutons de se déformer */
+    gap: 10px;
+  }
+
+ .btn {
+        background: #5a67d8 !important;
+        border: none !important;
+        padding: 0.65rem !important;
+        font-weight: 600 !important;
+  }
+  .btn:hover {
+        background: #4c51bf !important;
+        transform: translateY(-3px) !important;
+        box-shadow: 0 10px 20px rgba(90, 103, 216, 0.4) !important;
+  }
+
+</style>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Liste des cours</h2>
+
+    <div class="row">
+        {% for course in courses %}
+        <div class="col-12">
+            <div class="card mb-3 shadow-sm p-3">
+                <div class="course-row">
+
+                    <div class="course-text">
+                        <h4 class="mb-2">{{ course.title }}</h4>
+                        <p class="text-muted mb-0">{{ course.description|truncatewords:20 }}</p>
+                    </div>
+
+                    <div class="course-actions">
+                        <a href="{% url 'course_detail' course.id %}" class="btn btn-primary btn-sm">Voir</a>
+
+                        {% if request.user == course.instructor %}
+                            <a href="{% url 'course_update' course.id %}" class="btn btn-warning btn-sm">Modifier</a>
+                            <a href="{% url 'course_delete' course.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+          <p>Aucun cours disponible.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

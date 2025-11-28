@@ -1,0 +1,10 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+<h1>{{ lesson.title }}</h1>
+<p>{{ lesson.content }}</p>
+{% if lesson.video_url %}
+<div class="ratio ratio-16x9">
+  <iframe src="{{ lesson.video_url }}" title="{{ lesson.title }}" allowfullscreen></iframe>
+</div>
+{% endif %}
+{% endblock %}
