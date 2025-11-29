@@ -1,1 +1,1 @@
-web: gunicorn elearning.wsgi
+web: gunicorn elearning.wsgi --bind 0.0.0.0:$PORT
