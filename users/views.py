@@ -3,8 +3,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm, LoginForm
+from django.http import HttpResponse
 
-
+def healthcheck(request):
+    return HttpResponse("OK")
 def register(request):
     """
     Vue pour l'inscription d'un nouvel utilisateur
