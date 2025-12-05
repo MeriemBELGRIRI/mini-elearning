@@ -7,10 +7,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 # --------------------------
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')  # tirée de AWS Secrets Manager
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+SECRET_KEY = "dev-secret-key-change-me"
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # Pour EC2, ALB ou Elastic Beanstalk
+ALLOWED_HOSTS = []   # En local uniquement
 
 # --------------------------
 # APPS
@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Apps du projet
     'courses',
     'users',
 ]
@@ -57,7 +59,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'elearning.wsgi.application'
 
 # --------------------------
-# DATABASE (AWS RDS)
+# DATABASE (LOCAL PostgreSQL)
 # --------------------------
 
 DATABASES = {
@@ -66,8 +68,8 @@ DATABASES = {
         'NAME': 'elearningdb',
         'USER': 'postgres',
         'PASSWORD': 'ElearningDB123',
-        'HOST': 'elearningdb.c94uwkoaqvic.eu-north-1.rds.amazonaws.com',
-        'PORT':  '5432',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -75,32 +77,16 @@ DATABASES = {
 # AUTH
 # --------------------------
 
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-]
-
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/courses/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/users/login/'
 
 # --------------------------
-# STATIC FILES (AWS S3)
+# STATIC FILES (LOCAL)
 # --------------------------
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Pour S3 (si tu veux uploader images/cours)
-if os.getenv('USE_S3') == 'True':
-    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
-    AWS_S3_REGION_NAME = os.getenv('AWS_REGION')
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # --------------------------
 # DEFAULT PRIMARY KEY

@@ -10,6 +10,8 @@ from .forms import CourseForm, LessonForm
 
 @login_required(login_url='/users/login/')
 def course_list(request):
+    if not request.user.is_staff:
+        return redirect('users:login')
     courses = Course.objects.all()
     return render(request, 'courses/course_list.html', {'courses': courses})
 
@@ -67,6 +69,7 @@ def course_delete(request, course_id):
         return redirect('course_list')
 
     return render(request, 'courses/course_delete.html', {'course': course})
+
 
 # --------------------------
 # Lessons

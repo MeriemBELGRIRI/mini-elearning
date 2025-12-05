@@ -31,8 +31,6 @@
         {% if user.is_authenticated %}
         <li class="nav-item"><a class="nav-link" href="{% url 'course_create' %}">Créer un cours</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">Déconnexion</a></li>
-        {% else %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Connexion</a></li>
         {% endif %}
       </ul>
     </div>
